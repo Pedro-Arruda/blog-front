@@ -1,84 +1,73 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
-export interface UserProps {
+export interface AuthProps {
   email: string;
   nome: string;
   usuarioId: number | null;
 }
 
-export interface AuthContextProps {
-  user: UserProps;
-  setUser: (user: UserProps) => void;
+export interface AuthContextData {
+  auth: AuthProps | null;
+  updateAuth: (auth: AuthProps | null) => void;
 }
 
-export const AuthContext = createContext<AuthContextProps>({
-  user: {
-    email: "",
-    nome: "",
-    usuarioId: null,
-  },
-  setUser: () => {},
+export const AuthContext = createContext<AuthContextData>({
+  auth: null,
+  updateAuth: () => {},
 });
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<UserProps>({
-    email: "",
-    nome: "",
-    usuarioId: null,
-  });
+  const [auth, setAuth] = useState<AuthProps | null>(null);
 
   const LOCAL_STORAGE_KEY = "usuario-auth";
 
-  const setAuth = (user: any) => {
-    if (!user) {
+  const updateAuth = (auth: AuthProps | null) => {
+    if (!auth) {
       localStorage.removeItem(LOCAL_STORAGE_KEY);
     } else {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(user));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(auth));
     }
 
-    setUser(user);
+    setAuth(auth);
   };
 
-  const fetchAuth = () => {
+  const fetchAuthData = () => {
     try {
       const authStr = localStorage.getItem(LOCAL_STORAGE_KEY);
 
       if (!authStr) {
-        setUser({
-          email: "",
-          nome: "",
-          usuarioId: null,
-        });
+        updateAuth(null);
         return;
       }
 
-      try {
-        const value = JSON.parse(authStr);
+      const value = JSON.parse(authStr);
 
-        setAuth({
-          refreshToken: value.refreshToken,
-          accessToken: value.accessToken,
-          expiresAt: value.expiresAt,
+      if (value && value.email && value.nome && value.usuarioId) {
+        updateAuth({
+          email: value.email,
+          nome: value.nome,
+          usuarioId: value.usuarioId,
         });
-      } catch (err) {
-        console.log(err);
-        setUser({
-          email: "",
-          nome: "",
-          usuarioId: null,
-        });
+      } else {
+        updateAuth(null);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      updateAuth(null);
     }
   };
 
   useEffect(() => {
-    fetchAuth();
+    fetchAuthData();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider
+      value={{
+        auth,
+        updateAuth,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

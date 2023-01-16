@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
-import { UserProps } from "../../context/authContext";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
+import { AuthProps } from "../../context/authContext";
 import { useAuth } from "../../hooks/useAuth";
 import "./Login.css";
 
@@ -7,11 +9,11 @@ interface DataProps {
   accessToken: string;
   expiresAt: string;
   refreshToken: string;
-  usuario: UserProps;
+  usuario: AuthProps;
 }
 
 export const Login = () => {
-  const { user, setUser } = useAuth();
+  const { updateAuth } = useAuth();
 
   const [fields, setFields] = useState({
     email: "",
@@ -33,40 +35,37 @@ export const Login = () => {
       }),
     })
       .then((response) => response.json())
-      .then((data: DataProps) => setUser(data.usuario));
+      .then((data: DataProps) => updateAuth(data.usuario));
   };
 
   return (
-    <div className="container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">E-mail</label>
-          <input
-            name="email"
-            type="email"
-            value={fields.email}
-            required
-            onChange={(e) => {
-              setFields({ ...fields, email: e.target.value });
-            }}
-          />
-        </div>
+    <div className=" flex justify-center items-center h-screen">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <h1 className="text-3xl font-bold text-center">Login</h1>
+        <Input
+          name="email"
+          type="email"
+          className="w-72"
+          label="E-mail"
+          value={fields.email}
+          required
+          onChange={(value) => {
+            setFields({ ...fields, email: value });
+          }}
+        />
 
-        <div>
-          <label htmlFor="senha">Senha</label>
-          <input
-            name="senha"
-            type="password"
-            value={fields.senha}
-            required
-            onChange={(e) => {
-              setFields({ ...fields, senha: e.target.value });
-            }}
-          />
-        </div>
+        <Input
+          name="senha"
+          type="password"
+          value={fields.senha}
+          label="Senha"
+          required
+          onChange={(value) => {
+            setFields({ ...fields, senha: value });
+          }}
+        />
 
-        <button type="submit">Enviar</button>
+        <Button type="submit">Enviar</Button>
       </form>
     </div>
   );
