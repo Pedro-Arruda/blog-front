@@ -2,8 +2,8 @@ import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 export interface AuthProps {
   email: string;
-  nome: string;
-  usuarioId: number | null;
+  name: string;
+  _id: number | null;
 }
 
 export interface AuthContextData {
@@ -45,8 +45,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       if (value && value.email && value.nome && value.usuarioId) {
         updateAuth({
           email: value.email,
-          nome: value.nome,
-          usuarioId: value.usuarioId,
+          name: value.name,
+          _id: value._id,
         });
       } else {
         updateAuth(null);

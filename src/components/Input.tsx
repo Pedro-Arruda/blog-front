@@ -31,7 +31,7 @@ export const Input = ({
         value={value}
         onChange={(e) => onChange && onChange(e.target.value, e)}
         className={classNames(
-          "border text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ",
+          "border-b-2 text-lg rounded-lg block w-full p-2 border-gray-400 placeholder-gray-400 ",
           className
         )}
       />

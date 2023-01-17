@@ -5,6 +5,7 @@ import { UserCard } from "./UserCard";
 interface User {
   name: string;
   salary: number;
+  _id: string;
 }
 
 export const UserList = () => {
@@ -26,6 +27,7 @@ export const UserList = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
+
   return (
     <div className="flex">
       <Sidebar />
@@ -33,7 +35,12 @@ export const UserList = () => {
         <h1 className="text-4xl	">Usuários</h1>
         <div className="flex gap-5 flex-wrap">
           {users?.map((user, index) => (
-            <UserCard nome={user.name} salario={user.salary} key={index} />
+            <UserCard
+              nome={user.name}
+              salario={user.salary}
+              key={index}
+              id={user._id}
+            />
           ))}
         </div>
       </div>

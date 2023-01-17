@@ -6,8 +6,8 @@ export const Sidebar = () => {
   const { updateAuth } = useAuth();
   return (
     <aside className="w-64" aria-label="Sidebar">
-      <div className="px-3 py-6 overflow-y-auto rounded bg-gray-50 dark:bg-gray-800 h-screen flex flex-col justify-between">
-        <ul className="space-y-2" onClick={() => console.log("oi")}>
+      <div className="px-3 py-6 overflow-y-auto rounded bg-gray-800 h-screen flex flex-col justify-between">
+        <ul className="space-y-2">
           <li>
             <Link
               to={"/"}
