@@ -9,6 +9,7 @@ export const UserCreate = () => {
   const [fields, setFields] = useState({
     nome: "",
     salario: "",
+    image: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
@@ -23,6 +24,7 @@ export const UserCreate = () => {
         body: JSON.stringify({
           name: fields.nome,
           salary: fields.salario,
+          image: fields.image,
           approved: true,
         }),
       });
@@ -52,6 +54,14 @@ export const UserCreate = () => {
               value={fields.salario}
               onChange={(value) => setFields({ ...fields, salario: value })}
               label="Salário"
+            />
+          </div>
+          <div>
+            <Input
+              name="image"
+              value={fields.image}
+              onChange={(value) => setFields({ ...fields, image: value })}
+              label="URL da imagem"
             />
           </div>
 

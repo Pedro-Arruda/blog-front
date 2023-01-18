@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
-import { UserCard } from "./UserCard";
+import { Table } from "./Table";
 
 interface User {
   name: string;
@@ -9,7 +10,9 @@ interface User {
 }
 
 export const UserList = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>();
+
   const fetchUsers = () => {
     try {
       fetch("http://localhost:3000/person", {
@@ -34,14 +37,23 @@ export const UserList = () => {
       <div className="container p-5 mt-5">
         <h1 className="text-4xl	">Usuários</h1>
         <div className="flex gap-5 flex-wrap">
-          {users?.map((user, index) => (
-            <UserCard
-              nome={user.name}
-              salario={user.salary}
-              key={index}
-              id={user._id}
+          {users ? (
+            <Table
+              Items={users}
+              columns={[
+                {
+                  key: "name",
+                  label: "Nome",
+                },
+                {
+                  key: `salary`,
+                  label: "Salário",
+                },
+              ]}
             />
-          ))}
+          ) : (
+            <p>Nenhum dado encontrado</p>
+          )}
         </div>
       </div>
     </div>
