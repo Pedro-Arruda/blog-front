@@ -1,9 +1,12 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 export interface AuthProps {
-  email: string;
-  name: string;
-  _id: number | null;
+  token: string;
+  user: {
+    email: string;
+    name: string;
+    _id: number | null;
+  };
 }
 
 export interface AuthContextData {
@@ -37,16 +40,17 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
       if (!authStr) {
         updateAuth(null);
+
         return;
       }
 
       const value = JSON.parse(authStr);
+      console.log({ value });
 
-      if (value && value.email && value.nome && value.usuarioId) {
+      if (value && value.token && value.user) {
         updateAuth({
-          email: value.email,
-          name: value.name,
-          _id: value._id,
+          token: value.token,
+          user: value.user,
         });
       } else {
         updateAuth(null);
