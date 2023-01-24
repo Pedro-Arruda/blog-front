@@ -30,6 +30,8 @@ export const UserCard = ({ nome, salario, id }: UserCardProps) => {
           onClick={() => deleleUser(id)}
         />
       </div>
+
+      <div dangerouslySetInnerHTML={{ __html: `<p>Teste</p>` }} />
     </div>
   );
 };

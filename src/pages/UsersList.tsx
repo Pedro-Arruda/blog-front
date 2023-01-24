@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Sidebar } from "./Sidebar";
-import { Table } from "./Table";
+import { Sidebar } from "../components/Sidebar";
+import { Table } from "../components/Table";
 
-interface User {
+interface Products {
   name: string;
-  salary: number;
+  price: number;
+  image: string;
   _id: string;
 }
 
 export const UserList = () => {
-  const navigate = useNavigate();
-  const [users, setUsers] = useState<User[]>();
+  const [products, setUsers] = useState<Products[]>();
 
   const fetchUsers = () => {
     try {
-      fetch("http://localhost:3000/person", {
+      fetch("http://localhost:3000/product", {
         headers: {
           "Content-type": "application/json",
         },
@@ -35,19 +34,19 @@ export const UserList = () => {
     <div className="flex">
       <Sidebar />
       <div className="container p-5 mt-5">
-        <h1 className="text-4xl	">Usuários</h1>
+        <h1 className="text-4xl	">Produtos</h1>
         <div className="flex gap-5 flex-wrap">
-          {users ? (
+          {products ? (
             <Table
-              Items={users}
+              items={products}
               columns={[
                 {
                   key: "name",
                   label: "Nome",
                 },
                 {
-                  key: `salary`,
-                  label: "Salário",
+                  key: `price`,
+                  label: "Preço",
                 },
               ]}
             />

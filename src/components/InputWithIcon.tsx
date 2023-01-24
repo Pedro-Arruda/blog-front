@@ -8,14 +8,16 @@ interface InputProps
   label?: string;
   onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
+  icon: () => JSX.Element;
 }
 
-export const Input = ({
+export const InputWithIcon = ({
   name,
   value,
   label,
   onChange,
   className,
+  icon: Icon,
   ...rest
 }: InputProps) => {
   return (
@@ -26,18 +28,23 @@ export const Input = ({
       >
         {label}
       </label>
-      <input
-        id={name}
-        name={name}
-        required={false}
-        value={value}
-        onChange={(e) => onChange && onChange(e.target.value, e)}
+      <div
         className={classNames(
-          "border-2 text-lg rounded-sm w-full p-2 border-gray-300 placeholder-gray-400 ",
+          "flex gap-5 items-center border-2 text-lg rounded-sm w-full p-2 border-gray-300 placeholder-gray-400 ",
           className
         )}
-        {...rest}
-      />
+      >
+        <Icon />
+        <input
+          id={name}
+          required={false}
+          name={name}
+          value={value}
+          onChange={(e) => onChange && onChange(e.target.value, e)}
+          className="focus:border-none border-none w-full outline-none"
+          {...rest}
+        />
+      </div>
     </div>
   );
 };

@@ -1,7 +1,9 @@
+import { User } from "phosphor-react";
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
-import { Input } from "../components/Input";
+import { InputPassword } from "../components/InputPassword";
+import { InputWithIcon } from "../components/InputWithIcon";
 import { AuthProps } from "../context/authContext";
 import { createFetchError } from "../functions/createFetchError";
 import { parseError } from "../functions/parseError";
@@ -13,7 +15,6 @@ export interface DataProps {
 }
 
 export const Login = () => {
-  const navigate = useNavigate();
   const { updateAuth } = useAuth();
   const [errorMessage, setErrorMessage] = useState();
 
@@ -26,7 +27,7 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/user/login", {
+      const response = await fetch("http://localhost:3001/user/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -57,29 +58,31 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen">
+    <div className="flex justify-center flex-col gap-10 items-center h-screen w-screen">
+      <h1 className="text-4xl font-bold text-gray-700">
+        Bem vindo(a) ao blog!
+      </h1>
       <form
-        className="flex flex-col gap-6 px-20 py-14 w-200"
+        className="flex flex-col gap-7 p-10 w-[500px] bg-white shadow-lg"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-3xl font-bold text-center">Login</h1>
-        <Input
+        <InputWithIcon
           name="email"
           type="email"
+          placeholder="exemplo@email.com"
           label="E-mail"
           value={fields.email}
-          required
           onChange={(value) => {
             setFields({ ...fields, email: value });
           }}
+          icon={() => <User size={22} weight="fill" color="#44403c" />}
         />
 
-        <Input
+        <InputPassword
           name="senha"
-          type="password"
+          placeholder="Sua senha"
           value={fields.password}
           label="Senha"
-          required
           onChange={(value) => {
             setFields({ ...fields, password: value });
           }}
@@ -91,17 +94,18 @@ export const Login = () => {
           </p>
         )}
 
-        <div className="flex justify-end gap-5">
-          <Button type="submit" onClick={() => handleSubmit}>
+        <div className="flex justify-center gap-5 flex-col">
+          <Button
+            type="submit"
+            onClick={() => handleSubmit}
+            className="bg-neutral-800 hover:bg-neutral-900 transition-colors"
+          >
             Entrar
           </Button>
-          <Button
-            type="button"
-            className="bg-green-500 hover:bg-green-600"
-            onClick={() => navigate("/register")}
-          >
-            Registrar
-          </Button>
+
+          <Link to="/register" className="underline text-center">
+            Registrar conta
+          </Link>
         </div>
       </form>
     </div>

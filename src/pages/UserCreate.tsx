@@ -1,15 +1,17 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./Button";
-import { Input } from "./Input";
-import { Sidebar } from "./Sidebar";
+import { Button } from "../components/Button";
+import { Input } from "../components/Input";
+import { Sidebar } from "../components/Sidebar";
 
 export const UserCreate = () => {
   const navigate = useNavigate();
   const [fields, setFields] = useState({
     nome: "",
-    salario: "",
+    preco: "",
     image: "",
+    qtd: "",
+    active: true,
   });
 
   const handleSubmit = async (e: FormEvent) => {
@@ -23,9 +25,10 @@ export const UserCreate = () => {
         },
         body: JSON.stringify({
           name: fields.nome,
-          salary: fields.salario,
+          price: fields.preco,
           image: fields.image,
-          approved: true,
+          qtd: fields.qtd,
+          active: true,
         }),
       });
     } catch (error) {
@@ -40,30 +43,30 @@ export const UserCreate = () => {
       <div className="container p-5 mt-10">
         <h1 className="text-4xl	">Cadastrar usuário</h1>
         <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-5">
-          <div>
-            <Input
-              name="nome"
-              value={fields.nome}
-              onChange={(value) => setFields({ ...fields, nome: value })}
-              label="Nome"
-            />
-          </div>
-          <div>
-            <Input
-              name="salario"
-              value={fields.salario}
-              onChange={(value) => setFields({ ...fields, salario: value })}
-              label="Salário"
-            />
-          </div>
-          <div>
-            <Input
-              name="image"
-              value={fields.image}
-              onChange={(value) => setFields({ ...fields, image: value })}
-              label="URL da imagem"
-            />
-          </div>
+          <Input
+            name="nome"
+            value={fields.nome}
+            onChange={(value) => setFields({ ...fields, nome: value })}
+            label="Nome"
+          />
+          <Input
+            name="preco"
+            value={fields.preco}
+            onChange={(value) => setFields({ ...fields, preco: value })}
+            label="Preço"
+          />
+          <Input
+            name="qtd"
+            value={fields.qtd}
+            onChange={(value) => setFields({ ...fields, qtd: value })}
+            label="Quantidade"
+          />
+          <Input
+            name="image"
+            value={fields.image}
+            onChange={(value) => setFields({ ...fields, image: value })}
+            label="URL da imagem"
+          />
 
           <div className="flex justify-end">
             <Button>Cadastrar</Button>

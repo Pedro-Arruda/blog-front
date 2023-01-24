@@ -5,10 +5,10 @@ interface TableProps {
     key: string;
     label: string;
   }[];
-  Items: {}[];
+  items: {}[];
 }
 
-export const Table = ({ columns, Items }: TableProps) => {
+export const Table = ({ columns, items }: TableProps) => {
   return (
     <table className="w-full border-collapse">
       <thead>
@@ -21,13 +21,10 @@ export const Table = ({ columns, Items }: TableProps) => {
         </tr>
       </thead>
       <tbody>
-        {Items.map((item, index) => (
+        {items.map((item, index) => (
           <tr key={`tr-${index}`}>
             {columns.map((column) => (
-              <td
-                key={`td-${column.key}`}
-                className="border-2 p-2 text-center cursor-pointer"
-              >
+              <td key={`td-${column.key}`} className="border-2 p-2 text-center">
                 {_.get(item, column.key)}
               </td>
             ))}

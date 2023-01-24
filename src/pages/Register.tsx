@@ -1,13 +1,17 @@
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createFetchError } from "../functions/createFetchError";
 import { parseError } from "../functions/parseError";
-import { useAuth } from "../hooks/useAuth";
-import { Button } from "./Button";
-import { Input } from "./Input";
+import { Button } from "../components/Button";
+import { InputWithIcon } from "../components/InputWithIcon";
+import {
+  ArrowCounterClockwise,
+  EnvelopeOpen,
+  Lock,
+  User,
+} from "phosphor-react";
 
 export const Register = () => {
-  const { updateAuth } = useAuth();
   const [errorMessage, setErrorMessage] = useState();
   const navigate = useNavigate();
 
@@ -22,7 +26,7 @@ export const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/user/register", {
+      const response = await fetch("http://localhost:3001/user/register", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -42,9 +46,6 @@ export const Register = () => {
         throw error;
       }
 
-      const data: any = await response.json();
-
-      updateAuth(data);
       navigate("/");
     } catch (err: any) {
       if (err.status === 400) {
@@ -58,51 +59,57 @@ export const Register = () => {
   return (
     <div className="flex justify-center items-center h-screen w-screen">
       <form
-        className="flex flex-col gap-6 px-20 py-14 w-200"
+        className="flex flex-col gap-6 px-20 py-14 w-[1000px]"
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold text-center">Registrar</h1>
-        <Input
+        <InputWithIcon
           name="name"
           type="name"
           label="Nome"
           value={fields.name}
-          required
           onChange={(value) => {
             setFields({ ...fields, name: value });
           }}
+          placeholder="seu nome"
+          icon={() => <User size={22} weight="fill" color="#44403c" />}
         />
-        <Input
+        <InputWithIcon
           name="email"
           type="email"
           label="E-mail"
           value={fields.email}
-          required
           onChange={(value) => {
             setFields({ ...fields, email: value });
           }}
+          placeholder="exemplo@email.com"
+          icon={() => <EnvelopeOpen size={22} weight="fill" color="#44403c" />}
         />
 
-        <Input
+        <InputWithIcon
           name="senha"
           type="password"
           value={fields.password}
           label="Senha"
-          required
           onChange={(value) => {
             setFields({ ...fields, password: value });
           }}
+          placeholder="sua senha"
+          icon={() => <Lock size={22} weight="fill" color="#44403c" />}
         />
 
-        <Input
+        <InputWithIcon
           name="confirmpassword"
           type="password"
           value={fields.confirmpassword}
           label="Repetir senha"
-          required
           onChange={(value) => {
             setFields({ ...fields, confirmpassword: value });
           }}
+          placeholder="repita sua senha"
+          icon={() => (
+            <ArrowCounterClockwise size={22} weight="fill" color="#44403c" />
+          )}
         />
 
         {errorMessage && (
@@ -111,13 +118,13 @@ export const Register = () => {
           </p>
         )}
 
-        <div className="flex justify-end gap-5">
-          <Button type="button" onClick={() => navigate("/")}>
+        <div className="flex justify-end items-center gap-10">
+          <Link to="/login" className="underline text-center text-lg">
             Voltar
-          </Button>
+          </Link>
           <Button
             type="submit"
-            className="bg-green-500 hover:bg-green-600"
+            className="bg-neutral-800 hover:bg-neutral-900 transition-colors"
             onClick={() => handleSubmit}
           >
             Registrar

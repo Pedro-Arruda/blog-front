@@ -23,7 +23,7 @@ export const Sidebar = () => {
             >
               <span className="flex ml-3 whitespace-nowrap items-center	gap-3">
                 <User size={22} />
-                Usuários
+                Produtos
               </span>
             </Link>
           </li>
@@ -34,7 +34,7 @@ export const Sidebar = () => {
             >
               <span className="flex ml-3 whitespace-nowrap items-center	gap-3">
                 <Plus size={22} />
-                Adicionar usuários
+                Adicionar produtos
               </span>
             </Link>
           </li>

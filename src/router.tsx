@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { UserList } from "./components/UsersList";
-import { UserCreate } from "./components/UserCreate";
 import { useAuth } from "./hooks/useAuth";
 import { Login } from "./pages/Login";
-import { Register } from "./components/Register";
+import { UserList } from "./pages/UsersList";
+import { UserCreate } from "./pages/UserCreate";
+import { Register } from "./pages/Register";
 
 export const Router = () => {
   const { auth } = useAuth();
