@@ -12,7 +12,7 @@ export const Button = ({ children, className, ...rest }: ButtonProps) => {
       type="submit"
       className={classNames(
         className,
-        "text-white bg-blue-500  font-medium rounded-3xl text-md px-16 py-2.5 text-center"
+        "text-white bg-neutral-800  font-medium rounded-3xl text-md px-16 py-2.5 text-center"
       )}
       {...rest}
     >

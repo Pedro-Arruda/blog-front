@@ -45,7 +45,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       }
 
       const value = JSON.parse(authStr);
-      console.log({ value });
 
       if (value && value.token && value.user) {
         updateAuth({

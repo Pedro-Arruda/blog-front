@@ -1,6 +1,6 @@
 import { User } from "phosphor-react";
 import { FormEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { InputPassword } from "../components/InputPassword";
 import { InputWithIcon } from "../components/InputWithIcon";
@@ -16,6 +16,7 @@ export interface DataProps {
 
 export const Login = () => {
   const { updateAuth } = useAuth();
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState();
 
   const [fields, setFields] = useState({
@@ -48,6 +49,7 @@ export const Login = () => {
       const data: any = await response.json();
 
       updateAuth(data);
+      navigate("/");
     } catch (err: any) {
       if (err.status === 400) {
         setErrorMessage(err?.data?.body?.msg);

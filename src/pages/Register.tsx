@@ -119,7 +119,7 @@ export const Register = () => {
         )}
 
         <div className="flex justify-end items-center gap-10">
-          <Link to="/login" className="underline text-center text-lg">
+          <Link to="/" className="underline text-center text-lg">
             Voltar
           </Link>
           <Button
