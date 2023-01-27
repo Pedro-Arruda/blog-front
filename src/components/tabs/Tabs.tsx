@@ -1,46 +1,37 @@
-import { cloneElement, useEffect, useState } from "react";
+import { useState } from "react";
 import { TabButtonList } from "./TabButtonList";
 
 interface TabsProps {
-  labels: string[];
-  children: JSX.Element[];
+  items: {
+    label: string;
+    value: string;
+  }[];
   defaultTab?: string;
+  onChangeTab?: (value: string) => void;
 }
 
-export const Tabs = ({ children, labels, defaultTab }: TabsProps) => {
+export const Tabs = ({ items, defaultTab, onChangeTab }: TabsProps) => {
   const [activeTab, setActiveTab] = useState(() =>
     defaultTab
-      ? labels.find((label) => label === defaultTab) || labels[0]
-      : labels[0]
+      ? items.find((item) => item.value === defaultTab)?.value || items[0].value
+      : items[0].value
   );
-  const [applyAnimation, setApplyAnimation] = useState(false);
 
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      setApplyAnimation(false);
-    }, 1000);
+  const handleChangeTab = (value: string) => {
+    setActiveTab(value);
 
-    return () => clearTimeout(timeOut);
-  }, [applyAnimation]);
-
-  const handleChangeTab = (label: string) => {
-    setApplyAnimation(true);
-    setActiveTab(label);
+    if (onChangeTab) {
+      onChangeTab(value);
+    }
   };
 
   return (
     <div className="flex flex-col gap-7">
       <TabButtonList
-        labels={labels}
+        items={items}
         activeTab={activeTab}
         onTabClick={handleChangeTab}
       />
-
-      <div className="mt-2">
-        {cloneElement(
-          children[labels.findIndex((value) => value === activeTab)]
-        )}
-      </div>
     </div>
   );
 };

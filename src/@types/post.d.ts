@@ -1,6 +1,9 @@
 interface Post {
+  _id: string;
   title: string;
-  imgCover: string;
+  imgCover?: string;
   content: string;
   tags: [];
+  author: string;
+  createdAt: string;
 }

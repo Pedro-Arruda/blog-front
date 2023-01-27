@@ -4,8 +4,10 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { Navbar } from "../components/Navbar";
 import { PostEditor } from "../components/PostEditor";
+import { useAuth } from "../hooks/useAuth";
 
 export const NewPost = () => {
+  const { auth } = useAuth();
   const navigate = useNavigate();
 
   const [fields, setFields] = useState({
@@ -17,11 +19,11 @@ export const NewPost = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(fields);
 
     const tagsArray = fields.tags
       .split(",")
       .map((tag) => tag.trim().toLowerCase());
-    console.log(tagsArray);
 
     try {
       await fetch("http://localhost:3001/post", {
@@ -33,7 +35,8 @@ export const NewPost = () => {
           title: fields.title,
           imgCover: fields.imgCover,
           content: fields.content,
-          // tags: fields.tags,
+          tags: tagsArray,
+          author: auth?.user.name,
         }),
       });
 
@@ -52,7 +55,7 @@ export const NewPost = () => {
         <p>Escreva sobre o que quiser e compartilhe seu conhecimento!</p>
       </div>
 
-      <form className="flex flex-col gap-7" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-7 mb-10" onSubmit={handleSubmit}>
         <Input
           label="Título"
           name="title"

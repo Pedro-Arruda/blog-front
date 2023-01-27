@@ -1,0 +1,23 @@
+.wrapper-class {
+  font-size: 1.25rem;
+}
+
+.wrapper-class ul {
+  font-size: 1.25rem;
+  margin-left: 5rem;
+}
+
+.wrapper-class h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.wrapper-class h2 {
+  font-size: 2.75rem;
+  font-weight: bold;
+}
+
+.wrapper-class h3 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}

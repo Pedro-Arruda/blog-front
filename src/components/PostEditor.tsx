@@ -5,6 +5,7 @@ import * as Draft from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { draftToMarkdown, markdownToDraft } from "markdown-draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./PostEditor.css";
 
 import classNames from "classnames";
 
@@ -49,7 +50,7 @@ export const PostEditor: React.FC<RichEditorProps> = ({
 
   return (
     <div className={classNames("wrapper-class", className)}>
-      <p className="block text-md font-medium text-gray-600 mb-1.5">{label}</p>
+      <p className="block text-md font-medium text-gray-600 m-0">{label}</p>
       <Editor
         toolbar={{
           options: ["inline", "blockType", "list", "emoji", "history"],
@@ -59,7 +60,7 @@ export const PostEditor: React.FC<RichEditorProps> = ({
         }}
         onEditorStateChange={onEditorStateChange}
         editorState={editorState}
-        editorClassName="bg-white py-1 px-4 shadow-md"
+        editorClassName="bg-white p-4 shadow-md"
         toolbarClassName="shadow-md"
       />
     </div>

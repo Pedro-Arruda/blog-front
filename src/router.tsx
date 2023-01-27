@@ -4,6 +4,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { NewPost } from "./pages/NewPost";
+import { DetailsPost } from "./pages/DetailsPost";
 
 export const Router = () => {
   const { auth } = useAuth();
@@ -16,11 +17,13 @@ export const Router = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/new-post" element={<NewPost />} />
+            <Route path="/posts/:id" element={<DetailsPost />} />
           </>
         ) : (
           <>
             <Route path="/" element={<Home />} />
+            <Route path="/new-post" element={<NewPost />} />
+            <Route path="/posts/:id" element={<DetailsPost />} />
           </>
         )}
       </Routes>

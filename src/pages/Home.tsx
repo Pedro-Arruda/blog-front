@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
-import { PostCard } from "../components/PostCard";
+import { PostList } from "../components/PostList";
 import { Tabs } from "../components/tabs/Tabs";
 import { createFetchError } from "../functions/createFetchError";
 import { parseError } from "../functions/parseError";
 
 export const Home = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const navigate = useNavigate();
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (postTag?: string) => {
     try {
-      const response = await fetch("http://localhost:3001/post");
+      const requestURL = `http://localhost:3001/post/${
+        postTag?.toLowerCase() || ""
+      }`;
+
+      const response = await fetch(requestURL);
 
       if (response.status !== 200) {
         const error = await createFetchError(response);
@@ -21,8 +23,7 @@ export const Home = () => {
       }
 
       const data = await response.json();
-      console.log(data);
-      navigate("/");
+      setPosts(data);
     } catch (err) {
       console.log(JSON.stringify(parseError(err), null, 2));
     }
@@ -33,22 +34,23 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="container  mx-auto flex flex-col gap-10">
+    <div className="container mx-auto flex flex-col gap-10 p-5 lg:p-0 mb-10">
       <Navbar />
       <h1 className="text-4xl font-bold">Últimos posts</h1>
 
-      <Tabs labels={["Todos", "React", "Javascript", "Node"]}>
-        <div className="flex flex-wrap gap-10 ">
-          {posts ? (
-            posts.map((post, index) => <PostCard post={post} key={index} />)
-          ) : (
-            <p>Nenhum post recente!</p>
-          )}
-        </div>
-        <div>aaaa</div>
-        <div>aaaa</div>
-        <div>aaaa</div>
-      </Tabs>
+      <Tabs
+        items={[
+          { label: "Todos", value: "" },
+          { label: "React", value: "react" },
+          { label: "JavaScript", value: "js" },
+          { label: "Node", value: "node" },
+          { label: "Front end", value: "frontend" },
+          { label: "Back end", value: "backend" },
+        ]}
+        defaultTab=""
+        onChangeTab={fetchPosts}
+      />
+      <PostList posts={posts} />
     </div>
   );
 };

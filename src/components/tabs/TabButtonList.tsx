@@ -1,23 +1,26 @@
 import { TabButton } from "./TabButton";
 
 interface TabButtonListProps {
-  labels: string[];
+  items: {
+    label: string;
+    value: string;
+  }[];
   activeTab: string;
   onTabClick: (label: string) => void;
 }
 
 export const TabButtonList = ({
   activeTab,
-  labels,
+  items,
   onTabClick,
 }: TabButtonListProps) => (
   <div className="flex gap-7 border-b border-neutral-300">
-    {labels.map((label) => (
+    {items.map((item) => (
       <TabButton
-        key={label}
-        label={label}
-        isActive={activeTab === label}
-        onClick={() => onTabClick(label)}
+        key={item.value}
+        label={item.label}
+        isActive={activeTab === item.value}
+        onClick={() => onTabClick(item.value)}
       />
     ))}
   </div>
