@@ -59,7 +59,7 @@ export const Register = () => {
   return (
     <div className="flex justify-center items-center h-screen w-screen">
       <form
-        className="flex flex-col gap-6 px-20 py-14 w-[1000px]"
+        className="flex flex-col gap-6  w-[1000px] bg-white shadow-lg p-7 rounded-md"
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold text-center">Registrar</h1>

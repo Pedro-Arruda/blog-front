@@ -5,6 +5,8 @@ import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { NewPost } from "./pages/NewPost";
 import { DetailsPost } from "./pages/DetailsPost";
+import { MyPosts } from "./pages/MyPosts";
+import { EditPost } from "./pages/EditPost";
 
 export const Router = () => {
   const { auth } = useAuth();
@@ -23,7 +25,9 @@ export const Router = () => {
           <>
             <Route path="/" element={<Home />} />
             <Route path="/new-post" element={<NewPost />} />
+            <Route path="/my-posts/" element={<MyPosts />} />
             <Route path="/posts/:id" element={<DetailsPost />} />
+            <Route path="/posts/edit/:id" element={<EditPost />} />
           </>
         )}
       </Routes>

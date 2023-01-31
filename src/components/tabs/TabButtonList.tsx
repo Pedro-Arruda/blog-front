@@ -14,7 +14,7 @@ export const TabButtonList = ({
   items,
   onTabClick,
 }: TabButtonListProps) => (
-  <div className="flex gap-7 border-b border-neutral-300">
+  <div className="flex flex-col sm:flex-row gap-7 border-b border-neutral-300">
     {items.map((item) => (
       <TabButton
         key={item.value}

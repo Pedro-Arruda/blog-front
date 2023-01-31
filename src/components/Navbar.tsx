@@ -6,8 +6,8 @@ export const Navbar = () => {
   const { auth, updateAuth } = useAuth();
 
   return (
-    <nav className="border-gray-200 px-2 sm:px-4 py-2.5 rounded">
-      <div className="container justify-between flex flex-wrap items-center mx-auto mt-3">
+    <nav className="border-gray-200 py-2.5 rounded">
+      <div className="container justify-between flex flex-wrap items-center mx-auto mt-3 px-4">
         <div className="flex gap-2 items-center">
           <Link to="/" className="flex items-center">
             <img src={logoBlog} className="h-6 mr-3 sm:h-9" alt="Blog Logo" />
@@ -31,7 +31,7 @@ export const Navbar = () => {
               {auth && (
                 <li>
                   <Link
-                    to="/new-post"
+                    to="/my-posts"
                     className=" py-2 pl-3 pr-4 text-neutral-600 text-lg hover:text-neutral-900"
                     aria-current="page"
                   >

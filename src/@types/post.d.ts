@@ -6,4 +6,5 @@ interface Post {
   tags: [];
   author: string;
   createdAt: string;
+  active: boolean;
 }

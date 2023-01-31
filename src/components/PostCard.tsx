@@ -2,6 +2,7 @@ import { UserCircle } from "phosphor-react";
 import { dateFormat } from "../functions/dateFormat";
 import { makePostResume } from "../functions/makeResume";
 import imgNotFound from "../assets/image-not-found.png";
+import { PostTags } from "./PostTags";
 
 interface PostCardProps {
   post: Post;
@@ -15,7 +16,7 @@ export const PostCard = ({ post, onClickCard }: PostCardProps) => {
       onClick={onClickCard}
     >
       <img
-        className="w-full h-[215px]"
+        className="w-full h-[200px] bg-cover"
         src={post.imgCover ? post.imgCover : imgNotFound}
         alt="Sunset in the mountains"
       />
@@ -37,11 +38,7 @@ export const PostCard = ({ post, onClickCard }: PostCardProps) => {
 
       <div className="px-6 pt-4 pb-2 flex justify-between items-center">
         <div>
-          {post.tags.map((tag) => (
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #{tag}
-            </span>
-          ))}
+          <PostTags tags={post.tags} />
         </div>
       </div>
     </div>
