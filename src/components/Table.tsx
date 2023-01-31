@@ -11,7 +11,7 @@ interface TableProps {
 
 export const Table = ({ columns, items }: TableProps) => {
   return (
-    <table className="w-full border-collapse ">
+    <table className="w-full border-collapse table-auto  overflow-x-scroll">
       <thead>
         <tr>
           {columns.map((column, index) => (

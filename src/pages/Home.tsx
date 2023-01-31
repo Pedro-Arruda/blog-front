@@ -34,7 +34,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="container mx-auto flex flex-col gap-10 p-3 mb-10">
+    <div className="container mx-auto flex flex-col gap-10 p-3 mb-10 dark">
       <Navbar />
       <h1 className="text-4xl font-bold">Últimos posts</h1>
 
